@@ -2,13 +2,21 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import PageBody from '../components/PageBody.astro';
+import TinaIsland from '@tinacms/astro/TinaIsland.astro';
 import config from '../content/config/config.json';
-import client from '../../tina/__generated__/client';
-import HomePage from "../../tina/pages/HomePage.tsx";
-const data = await client.queries.page({relativePath: "home.mdx"});
+import { getPage } from '../lib/data';
+import { islands } from '../lib/islands';
 
+export const prerender = false;
+
+const relativePath = 'home.mdx';
+const result = await getPage(relativePath);
+if (!result.data?.page) {
+	return new Response('Not Found', { status: 404 });
+}
+const data = result.data.page;
 ---
-
 <!doctype html>
 <html lang="en">
 	<head>
@@ -16,7 +24,9 @@ const data = await client.queries.page({relativePath: "home.mdx"});
 	</head>
 	<body>
 		<Header />
-		<HomePage {...data} client:tina />
+		<TinaIsland name="page" wrapper={islands.page.wrapper} params={{ relativePath }}>
+			<PageBody data={data} />
+		</TinaIsland>
 		<Footer />
 	</body>
 </html>

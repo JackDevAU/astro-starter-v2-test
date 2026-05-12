@@ -1,0 +1,28 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+	title: string;
+	link: string;
+	icon: string;
+}
+
+const { title, link, icon } = Astro.props;
+
+// Editor stores icon names as react-icons/tb keys ("TbBrandX").
+// Map to the iconify tabler set the build pipeline reads from
+// `@iconify-json/tabler` (e.g. "tabler:brand-x").
+function tablerName(reactIconName: string): string {
+	const stripped = reactIconName.replace(/^Tb/, '');
+	const kebab = stripped
+		.replace(/([a-z])([A-Z0-9])/g, '$1-$2')
+		.replace(/([A-Z])([A-Z][a-z])/g, '$1-$2')
+		.replace(/([A-Za-z])([0-9])/g, '$1-$2')
+		.toLowerCase();
+	return `tabler:${kebab}`;
+}
+---
+<a href={link} target="_blank" rel="noopener noreferrer" aria-label={`Go to ${title}`}>
+	<span class="sr-only">{title}</span>
+	<Icon name={tablerName(icon)} size={32} />
+</a>

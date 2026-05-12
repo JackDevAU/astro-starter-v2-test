@@ -1,0 +1,32 @@
+---
+import TinaMarkdown from '@tinacms/astro/TinaMarkdown.astro';
+import { tinaField } from '@tinacms/astro/tina-field';
+import FormattedDate from './FormattedDate.astro';
+import type { BlogQuery } from '../../tina/__generated__/types';
+
+interface Props {
+	data: NonNullable<BlogQuery['blog']>;
+}
+
+const { data } = Astro.props;
+---
+<div data-tina-field={tinaField(data, 'heroImage')} class="hero-image">
+	{data.heroImage && <img width={1020} height={510} src={data.heroImage} alt="" />}
+</div>
+<div class="prose">
+	<div class="title">
+		<div class="date" data-tina-field={tinaField(data, 'pubDate')}>
+			<FormattedDate date={data.pubDate} />
+			{data.updatedDate && (
+				<div class="last-updated-on" data-tina-field={tinaField(data, 'updatedDate')}>
+					Last updated on <FormattedDate date={data.updatedDate} />
+				</div>
+			)}
+		</div>
+		<h1 data-tina-field={tinaField(data, 'title')}>{data.title}</h1>
+		<hr />
+	</div>
+	<div data-tina-field={tinaField(data, 'body')}>
+		<TinaMarkdown content={data.body} />
+	</div>
+</div>

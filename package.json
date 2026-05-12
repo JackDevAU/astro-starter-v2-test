@@ -15,18 +15,18 @@
     "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.7.2",
     "@astrojs/vercel": "^8",
-    "@tinacms/astro": "0.0.0-4399c93-20260512064311",
+    "@tinacms/astro": "0.0.0-7bd4852-20260512080613",
     "astro": "^5.18.1",
     "astro-icon": "^1.1.5"
   },
   "devDependencies": {
     "@iconify-json/tabler": "^1.2.35",
     "@tanstack/react-virtual": "^3.13.24",
-    "@tinacms/cli": "0.0.0-4399c93-20260512064311",
+    "@tinacms/cli": "0.0.0-7bd4852-20260512080613",
     "@types/node": "^25.7.0",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-icons": "^5.6.0",
-    "tinacms": "0.0.0-4399c93-20260512064311"
+    "tinacms": "0.0.0-7bd4852-20260512080613"
   }
 }

@@ -1,26 +1,39 @@
 ---
 import HeaderLink from "./HeaderLink.astro";
-import config from "../content/config/config.json";
 import IconLink from "./IconLink.astro";
+import { tinaField } from '@tinacms/astro/tina-field';
+import { getGlobalConfig } from '../lib/data';
+
+const result = await getGlobalConfig();
+const config = result.data.config;
 ---
 
 <header>
 	<nav>
-		<h2><a href="/">{config.seo.title}</a></h2>
+		<h2>
+			<a href="/" data-tina-field={tinaField(config.seo, 'title')}>
+				{config.seo?.title}
+			</a>
+		</h2>
 		<div class="internal-links">
 			{
-				config.nav.map((nav) => (
-					<HeaderLink href={nav.link}>{nav.title}</HeaderLink>
+				config.nav?.map((nav, i) => nav && (
+					<HeaderLink href={nav.link} data-tina-field={tinaField(config, 'nav', i)}>
+						{nav.title}
+					</HeaderLink>
 				))
 			}
 		</div>
 		<div class="social-links">
 			{
-				config?.contactLinks?.map((link) => {
-					return (
-						<IconLink {...link} />
-					);
-				})
+				config.contactLinks?.map((link, i) => link && (
+					<IconLink
+						title={link.title ?? ''}
+						link={link.link ?? ''}
+						icon={link.icon ?? ''}
+						dataTinaField={tinaField(config, 'contactLinks', i)}
+					/>
+				))
 			}
 		</div>
 	</nav>

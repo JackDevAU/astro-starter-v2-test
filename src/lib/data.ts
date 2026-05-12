@@ -6,3 +6,6 @@ export const getPage = (relativePath: string) =>
 
 export const getBlogPost = (relativePath: string) =>
 	requestWithMetadata(client.queries.blog({ relativePath }));
+
+export const getGlobalConfig = () =>
+	requestWithMetadata(client.queries.config({ relativePath: 'config.json' }));

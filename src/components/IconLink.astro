@@ -5,9 +5,10 @@ interface Props {
 	title: string;
 	link: string;
 	icon: string;
+	dataTinaField?: string;
 }
 
-const { title, link, icon } = Astro.props;
+const { title, link, icon, dataTinaField } = Astro.props;
 
 // Editor stores icon names as react-icons/tb keys ("TbBrandX").
 // Map to the iconify tabler set the build pipeline reads from
@@ -22,7 +23,7 @@ function tablerName(reactIconName: string): string {
 	return `tabler:${kebab}`;
 }
 ---
-<a href={link} target="_blank" rel="noopener noreferrer" aria-label={`Go to ${title}`}>
+<a href={link} target="_blank" rel="noopener noreferrer" aria-label={`Go to ${title}`} data-tina-field={dataTinaField}>
 	<span class="sr-only">{title}</span>
 	<Icon name={tablerName(icon)} size={32} />
 </a>
